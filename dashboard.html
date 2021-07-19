@@ -119,36 +119,36 @@
                                         <td>CO2 Plant</td>
                                         <td id="m1StatusOn"></i></td>
                                         <td id="m1StatusOff"><i class='fa fa-close text-danger'></i></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
+                                        <td id="m1Current"></td>
+                                        <td id="m1Speed"></td>
                                     </tr>
                                     <tr>
                                         <td>Boiler</td>
                                         <td id="m2StatusOn"></td>
                                         <td id="m2StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
+                                        <td id="m2Current"></td>
+                                        <td id="m2Speed"></td>
                                     </tr>
                                     <tr>
                                         <td>Filler</td>
                                         <td id="m3StatusOn"></td>
                                         <td id="m3StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
+                                        <td id="m3Current"></td>
+                                        <td id="m3Speed"></td>
                                     </tr>
                                     <tr>
                                         <td>B. Washer</td>
                                         <td id="m4StatusOn"></td>
                                         <td id="m4StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
+                                        <td id="m4Current"></td>
+                                        <td id="m4Speed"></td>
                                     </tr>
                                     <tr>
                                         <td>Havac</td>
                                         <td id="m5StatusOn"></td>
                                         <td id="m5StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
+                                        <td id="m5Current"></td>
+                                        <td id="m5Speed"></td>
                                     </tr>
                                     <td id="status"><i class='fa fa-close text-danger'></i></td>
                                 </tbody>
@@ -179,7 +179,7 @@
                             </div>
                         </div>
                         <div class="form-check-inline">
-                            <button class="btn btn-success" onclick="myFunction()">Start Plant</button>
+                            <button class="btn btn-success" onclick="startPlant()">Start Plant</button>
                             <!-- <input type="submit" class="btn btn-success" name="startPlant" value="Start Plant"> -->
                             &nbsp;&nbsp;&nbsp;
                             <!-- <input type="submit" class="btn btn-danger" name="stopPlant" value="Stop Plant"> -->
@@ -402,43 +402,50 @@
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
     <script>
-        function myFunction() {
+        function startPlant() {
             var tblMachines = document.getElementById("tblMachines")
             var status = document.getElementById("status").innerHTML
-            var delay = 3
-            const delayMilliSeconds = ((delay*60)*1000);
-            // alert(status)
 
+            var delay = 5
             // 1 min in milliseconds = 60000    
             // 3 mins in milliseconds = 180000
-            // const generateRandomNumber = (min, max) =>  {
-            // return Math.floor(Math.random() * (max - min) + min);
-            // };
+            const delayMilliSeconds = ((delay*60)*1000);
+
             
-            // console.log(generateRandomNumber(100, 200))
-            // console.log(generateRandomNumber(100, 200))
-            // console.log(generateRandomNumber(100, 200))
+            const generateRandomNumber = (min, max) =>  {
+                return Math.floor(Math.random() * (max - min) + min);
+            };
             
             if(Status = "<i class='fa fa-close text-danger'></i>"){
-            status = document.getElementById("status").innerHTML = "<i class='fa fa-check text-success'></i>";
-            document.getElementById("m1StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-            document.getElementById("m1StatusOff").innerHTML = "";
-            setTimeout(function(){
-                document.getElementById("m2StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m2StatusOff").innerHTML = "";
-            },1000);
-            setTimeout(function(){
-                document.getElementById("m3StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m3StatusOff").innerHTML = "";
-            },2000);
-            setTimeout(function(){
-                document.getElementById("m4StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m4StatusOff").innerHTML = "";
-            },3000);
-            setTimeout(function(){
-                document.getElementById("m5StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m5StatusOff").innerHTML = "";
-            },4000);
+                status = document.getElementById("status").innerHTML = "<i class='fa fa-check text-success'></i>";
+                document.getElementById("m1StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
+                document.getElementById("m1StatusOff").innerHTML = "";
+                document.getElementById("m1Current").innerHTML = generateRandomNumber(100, 200);
+                document.getElementById("m1Speed").innerHTML = generateRandomNumber(1000, 2000);
+                setTimeout(function(){
+                    document.getElementById("m2StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
+                    document.getElementById("m2StatusOff").innerHTML = "";
+                    document.getElementById("m2Current").innerHTML = generateRandomNumber(100, 200);
+                    document.getElementById("m2Speed").innerHTML = generateRandomNumber(1000, 2000);
+                },delayMilliSeconds);
+                setTimeout(function(){
+                    document.getElementById("m3StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
+                    document.getElementById("m3StatusOff").innerHTML = "";
+                    document.getElementById("m3Current").innerHTML = generateRandomNumber(100, 200);
+                    document.getElementById("m3Speed").innerHTML = generateRandomNumber(1000, 2000);
+                },2*delayMilliSeconds);
+                setTimeout(function(){
+                    document.getElementById("m4StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
+                    document.getElementById("m4StatusOff").innerHTML = "";
+                    document.getElementById("m4Current").innerHTML = generateRandomNumber(100, 200);
+                    document.getElementById("m4Speed").innerHTML = generateRandomNumber(1000, 2000);
+                },3*delayMilliSeconds);
+                setTimeout(function(){
+                    document.getElementById("m5StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
+                    document.getElementById("m5StatusOff").innerHTML = "";
+                    document.getElementById("m5Current").innerHTML = generateRandomNumber(100, 200);
+                    document.getElementById("m5Speed").innerHTML = generateRandomNumber(1000, 2000);
+                },4*delayMilliSeconds);
             }
         }
     </script>

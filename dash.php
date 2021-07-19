@@ -1,3 +1,17 @@
+<?php
+    session_start();
+    // var_dump($_REQUEST);
+    if(isset($_POST['startPlant'])){
+        $_SESSION['startPlant'] = true;
+        $_SESSION['stopPlant'] = false;
+    }elseif(isset($_POST['stopPlant'])){
+        $_SESSION['stopPlant'] = true;
+        $_SESSION['startPlant'] = false;
+    }else{
+        $_SESSION['stopPlant'] = true;
+        $_SESSION['startPlant'] = false;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- attendance23:24-->
@@ -115,49 +129,33 @@
                                             <th col-2>RPM</th>
                                         </tr>
                                     </thead>
-                                    <tr>
-                                        <td>CO2 Plant</td>
-                                        <td id="m1StatusOn"></i></td>
-                                        <td id="m1StatusOff"><i class='fa fa-close text-danger'></i></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Boiler</td>
-                                        <td id="m2StatusOn"></td>
-                                        <td id="m2StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Filler</td>
-                                        <td id="m3StatusOn"></td>
-                                        <td id="m3StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>B. Washer</td>
-                                        <td id="m4StatusOn"></td>
-                                        <td id="m4StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Havac</td>
-                                        <td id="m5StatusOn"></td>
-                                        <td id="m5StatusOff"><i class='fa fa-close text-danger'></td>
-                                        <td>Current</td>
-                                        <td>Speed</td>
-                                    </tr>
-                                    <td id="status"><i class='fa fa-close text-danger'></i></td>
+                                    <?php 
+                                        include 'assets/backend/dbconnect.php';
+
+                                        $stmt = $pdo->prepare("SELECT * FROM `machine`");
+                                        $stmt->execute();
+                                        $result = $stmt->fetchAll();
+
+                                        foreach($result as $row){  
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $row['name']; ?></td>
+                                            <?php if($_SESSION['startPlant'] == true){ echo "<td><i class='fa fa-check text-success'></i></td> <td></td>"; } ?>
+                                            <?php if($_SESSION['stopPlant'] == true){ echo "<td></td> <td><i class='fa fa-close text-danger'></i></td>"; } ?>
+                                            <td><?php echo rand(15.2,48.5) ?></td>
+                                            <td><?php echo rand(1450,2100) ?></td>
+                                        </tr>
+                                    <?php 
+                                        }  
+                                    ?>
+                                    <!-- <?php echo $row['status'] == "Active" ? "status-green" : "status-red"; ?> -->
                                 </tbody>
                             </table>
 						</div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <h1>Mode</h1>
-                        <!-- <form method="POST"> -->
+                        <form method="POST">
                         <div class="form-group">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="mode" id="running" value="running" checked>
@@ -179,17 +177,15 @@
                             </div>
                         </div>
                         <div class="form-check-inline">
-                            <button class="btn btn-success" onclick="myFunction()">Start Plant</button>
-                            <!-- <input type="submit" class="btn btn-success" name="startPlant" value="Start Plant"> -->
+                            <input type="submit" class="btn btn-success" name="startPlant" value="Start Plant">
                             &nbsp;&nbsp;&nbsp;
-                            <!-- <input type="submit" class="btn btn-danger" name="stopPlant" value="Stop Plant"> -->
-                            <button class="btn btn-danger" onclick="myFunction()">Stop Plant</button>
+                            <input type="submit" class="btn btn-danger" name="stopPlant" value="Stop Plant">
                         </div>
-                        <!-- </form> -->
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- <div class="notification-box">
+            <div class="notification-box">
                 <div class="msg-sidebar notifications msg-noti">
                     <div class="topnav-dropdown-header">
                         <span>Messages</span>
@@ -397,51 +393,10 @@
                         <a href="chat.php">See all messages</a>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
-    <script>
-        function myFunction() {
-            var tblMachines = document.getElementById("tblMachines")
-            var status = document.getElementById("status").innerHTML
-            var delay = 3
-            const delayMilliSeconds = ((delay*60)*1000);
-            // alert(status)
-
-            // 1 min in milliseconds = 60000    
-            // 3 mins in milliseconds = 180000
-            // const generateRandomNumber = (min, max) =>  {
-            // return Math.floor(Math.random() * (max - min) + min);
-            // };
-            
-            // console.log(generateRandomNumber(100, 200))
-            // console.log(generateRandomNumber(100, 200))
-            // console.log(generateRandomNumber(100, 200))
-            
-            if(Status = "<i class='fa fa-close text-danger'></i>"){
-            status = document.getElementById("status").innerHTML = "<i class='fa fa-check text-success'></i>";
-            document.getElementById("m1StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-            document.getElementById("m1StatusOff").innerHTML = "";
-            setTimeout(function(){
-                document.getElementById("m2StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m2StatusOff").innerHTML = "";
-            },1000);
-            setTimeout(function(){
-                document.getElementById("m3StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m3StatusOff").innerHTML = "";
-            },2000);
-            setTimeout(function(){
-                document.getElementById("m4StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m4StatusOff").innerHTML = "";
-            },3000);
-            setTimeout(function(){
-                document.getElementById("m5StatusOn").innerHTML = "<i class='fa fa-check text-success'></i>";
-                document.getElementById("m5StatusOff").innerHTML = "";
-            },4000);
-            }
-        }
-    </script>
     <script src="assets/js/jquery-3.2.1.min.js"></script>
 	<script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>

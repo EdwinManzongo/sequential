@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The onclick Event</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th col-3>Machine</th>
+      <th col-4>Stopped</th>
+      <th col-2></th>
+      <th col-2>Current</th>
+      <th col-2>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Machine 1</td>
+      <td id="m1Status">Stopped</td>
+      <td></td>
+      <td>Current</td>
+      <td>Speed</td>
+      <td id="status">Stopped</td>
+    </tr>
+    <tr>
+      <td>Machine 2</td>
+      <td id="m2Status">Stopped</td>
+      <td></td>
+      <td>Current</td>
+      <td>Speed</td>
+    </tr>
+    <tr>
+      <td>Machine 3</td>
+      <td id="m3Status">Stopped</td>
+      <td></td>
+      <td>Current</td>
+      <td>Speed</td>
+    </tr>
+  </tbody>
+</table>
+
+<button onclick="myFunction()">Start</button>
+
+<p id="demo"></p>
+
+<script>
+  function myFunction() {
+    var tblMachines = document.getElementById("tblMachines")
+    var status = document.getElementById("status").innerHTML
+    var delay = 3
+    const delayMilliSeconds = ((delay*60)*1000);
+    // alert(milliseconds)
+
+    const generateRandomNumber = (min, max) =>  {
+      return Math.floor(Math.random() * (max - min) + min);
+    };
+    
+    console.log(generateRandomNumber(100, 200))
+    console.log(generateRandomNumber(100, 200))
+    console.log(generateRandomNumber(100, 200))
+    
+    if(Status = "Stopped"){
+      status = document.getElementById("status").innerHTML = "Started";
+      document.getElementById("m1Status").innerHTML = "Started";
+      setTimeout(function(){
+        document.getElementById("m2Status").innerHTML = "Started";
+   	  },1000);
+      // 1 min in milliseconds = 60000
+      // 3 mins in milliseconds = 180000
+      setTimeout(function(){
+        document.getElementById("m3Status").innerHTML = "Started";
+   	  },2000);
+    }
+  }
+</script>
+
+</body>
+</html>

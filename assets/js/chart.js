@@ -34,16 +34,27 @@ $(document).ready(function() {
 	// Line Chart
 
 	var lineChartData = {
-		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"],
 		datasets: [{
-			label: "My First dataset",
-			backgroundColor: "rgba(0, 158, 251, 0.5)",
-			data: [100, 70, 20, 100, 120, 50, 70, 50, 50, 100, 50, 90]
+			label: "NL",
+			borderColor: "rgba(0, 158, 251)",
+			fill: false,
+			data: [370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370, 370]
 		}, {
-		label: "My Second dataset",
-		backgroundColor: "rgba(255, 188, 53, 0.5)",
-		fill: true,
-		data: [28, 48, 40, 19, 86, 27, 20, 90, 50, 20, 90, 20]
+			label: "BMD",
+			borderColor: "rgba(238, 240, 20)",
+			fill: false,
+			data: [460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460]
+		}, {
+			label: "MD",
+			borderColor: "rgba(255, 0, 0)",
+			fill: false,
+			data: [550, 550, 550, 550, 550, 550, 550, 550, 550, 550, 550, 550]
+		}, {
+			label: "Actual Power",
+			borderColor: "rgba(255, 188, 53, 0.5)",
+			fill: false,
+			data: [28, 48, 410, 19, 86, 700, 20, 90, 525, 20, 90, 20]
 		}]
 	};
 	
@@ -53,12 +64,16 @@ $(document).ready(function() {
 		data: lineChartData,
 		options: {
 			responsive: true,
+			title: {
+				display: true,
+				text: 'Usage'
+			},
 			legend: {
-				display: false,
+				display: true,
 			},
 			tooltips: {
 				mode: 'index',
-				intersect: false,
+				intersect: true,
 			}
 		}
 	});
