@@ -132,7 +132,7 @@
                                         <td id="m5Current"></td>
                                         <td id="m5Speed"></td>
                                     </tr>
-                                    <!-- <td id="status"><i class='fa fa-close text-danger'></i></td> -->
+                                    <td id="status"><i class='fa fa-close text-danger'></i></td>
                                 </tbody>
                             </table>
 						</div>
@@ -188,18 +188,25 @@
 
             const minn = 0;
             const maxx = 7;
+
+            var tblMachines = document.getElementById("tblMachines")
+            var status = document.getElementById("status").innerHTML
+            var delay = 1
+            const delayMilliSeconds = ((delay*60)*1000);
             
             for (let i = 0; i < 100; i++) {
-                // prev += 5 - Math.random() * 10;
+                // prev += 5 - Math.random(100, 620) * 10;
                 prev += Math.floor(Math.random() * (maxx - minn) + minn); 
                 data.push({x: i, y: prev});
+                // prev2 += 5 - Math.random() * 10;
                 nlData.push({x: i, y: nl});
                 bmdData.push({x: i, y: bmd});
                 mdData.push({x: i, y: md});
             }
 
-            const totalDuration = 10000;
-            const delayBetweenPoints = totalDuration / data.length;
+            const totalDuration = 1000;
+            // const delayBetweenPoints = totalDuration / data.length;
+            const delayBetweenPoints = 1000;
             const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 
             var ctx = document.getElementById('myChart').getContext('2d');
@@ -277,19 +284,6 @@
                 }
                 }
             });  
-            
-            var tblMachines = document.getElementById("tblMachines")
-            var status = document.getElementById("status").innerHTML
-
-            var delay = 1
-            // 1 min in milliseconds = 60000    
-            // 3 mins in milliseconds = 180000
-            const delayMilliSeconds = ((delay*60)*1000);
-
-            
-            const generateRandomNumber = (min, max) =>  {
-                return Math.floor(Math.random() * (max - min) + min);
-            };
             
             if(Status = "<i class='fa fa-close text-danger'></i>"){
                 status = document.getElementById("status").innerHTML = "<i class='fa fa-check text-success'></i>";
